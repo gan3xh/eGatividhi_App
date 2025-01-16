@@ -4,13 +4,17 @@
 
 ### Demo Video
 
-[Attach demo video link here]
+[eGatividhi_Demo.webm](https://github.com/user-attachments/assets/6aec8d7d-90ca-40a3-841b-ddf418826434)
+
 
 ### Image Results Example
 
-Result Image 1
+Result Image 1 
+![Screenshot 2025-01-16 012918](https://github.com/user-attachments/assets/8ae93124-6aba-4977-aa78-fdebf4ca2cf6)
 
 Result Image 2
+![Screenshot 2025-01-16 013142](https://github.com/user-attachments/assets/a3b4d5a9-c29e-4891-9d26-75e3e10366d7)
+
 
 ### Description
 
