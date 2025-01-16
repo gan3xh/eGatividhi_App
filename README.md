@@ -37,8 +37,9 @@ eGatividhi is a web application designed for monitoring and documenting construc
 - **AI/ML**: PyTorch, OpenCV, eGatividhi_ML: Construction-Progress-Monitoring Model
 - **Version Control**: Git
 
+
 ### ML Model Integration
-This web application implements the ML model from my repository: [eGatividhi_ML: Construction-Progress-Monitoring] (https://github.com/gan3xh/eGatividhi_ML.git). The model is designed for:
+This web application implements the ML model from my repository: [eGatividhi_ML: Construction-Progress-Monitoring](https://github.com/gan3xh/eGatividhi_ML). The model is designed for:
 - Construction progress detection through image analysis
 - Structural completion estimation
 - Quality assessment of construction work
