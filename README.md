@@ -37,49 +37,103 @@ eGatividhi is a web application designed for monitoring and documenting construc
 
 ### Installation
 
+#### Backend Setup
 1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   ```
+```bash
+git clone <repository-url>
+```
 2. Navigate to the project directory:
-   ```bash
-   cd eGatividhi
-   ```
+```bash
+cd eGatividhi
+```
 3. Set up the database:
-   - Create a MySQL database named `eGatividhi`.
-   - Import the necessary SQL schema from the provided SQL files (if available).
+- Create a MySQL database named `eGatividhi`
+- Import the necessary SQL schema:
+```bash
+mysql -u your_username -p eGatividhi < schema.sql
+```
 4. Update database connection settings in `1.php`:
-   ```php
-   $host = "localhost";
-   $username = "your_username";
-   $password = "your_password";
-   $dbname = "eGatividhi";
-   ```
-5. Start a local server (e.g., XAMPP, MAMP) and place the project folder in the server's root directory.
+```php
+$host = "localhost";
+$username = "your_username";
+$password = "your_password";
+$dbname = "eGatividhi";
+```
 
-### Usage
+#### Python Environment Setup
+1. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate # On Windows: venv\Scripts\activate
+```
+2. Install required Python packages:
+```bash
+pip install -r requirements.txt
+```
 
-- Navigate to the homepage (`index.html`) to view ongoing projects.
-- Select a project to view details and upload images.
-- Use the upload form to submit images for analysis.
-- View results including similarity scores and construction progress estimates.
+#### Frontend Setup
+1. Install Node.js dependencies:
+```bash
+npm install
+```
+2. Build the React application:
+```bash
+npm run build
+```
+
+### Running the Application
+
+#### Start the Python Backend
+1. Activate the virtual environment if not already activated:
+```bash
+source venv/bin/activate # On Windows: venv\Scripts\activate
+```
+2. Run the Python application:
+```bash
+python app.py
+```
+The server will start on `http://localhost:5000`
+
+#### Start the Web Server
+1. Configure your web server (Apache/Nginx) to serve the application
+2. For development, you can use PHP's built-in server:
+```bash
+php -S localhost:8000
+```
+
+### Configuration
+- Update `config.py` with your specific settings:
+```python
+DEBUG = False
+SECRET_KEY = 'your-secret-key'
+UPLOAD_FOLDER = 'path/to/uploads'
+```
+- Configure environment variables in `.env`:
+```
+DB_HOST=localhost
+DB_USER=your_username
+DB_PASS=your_password
+DB_NAME=eGatividhi
+```
 
 ### File Structure
-
 ```
 eGatividhi/
 │
 ├── .gitignore
 ├── .htaccess
+├── .env
+├── requirements.txt
+├── config.py
 ├── 1.php
 ├── 2.php
 ├── about.html
 ├── app.py
 ├── assets/
-│   ├── css/
-│   │   └── main.css
-│   └── js/
-│       └── main.js
+│ ├── css/
+│ │ └── main.css
+│ └── js/
+│ └── main.js
 ├── contact.html
 ├── index.html
 ├── info.php
@@ -92,6 +146,28 @@ eGatividhi/
 ├── Register.html
 ├── register.php
 ├── services.html
+├── schema.sql
 └── templates/
-    └── index.html
+└── index.html
 ```
+
+### API Documentation
+The application provides the following API endpoints:
+
+- `POST /api/upload` - Upload construction images
+- `GET /api/projects` - List all projects
+- `GET /api/projects/{id}` - Get specific project details
+- `POST /api/compare` - Compare two images for progress analysis
+
+### Testing
+Run the test suite:
+```bash
+python -m pytest tests/
+```
+
+### Contributing
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -am 'Add feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a Pull Request
