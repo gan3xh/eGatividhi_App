@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>eGatividhi</title>
+    <meta
+      name="description"
+      content="Upload and compare images to detect construction progress"
+    />
+    <meta
+      name="keywords"
+      content="construction, progress detection, AI, image comparison"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      .header {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid #ddd;
+        padding: 15px;
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .logo h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #333;
+      }
+
+      .logo span {
+        color: #ffbc00;
+      }
+
+      .navmenu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+
+      .navmenu ul li {
+        margin-right: 20px;
+      }
+
+      .navmenu ul li a {
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+      }
+
+      .page-title {
+        background-image: url("/static/img/page-title-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+
+      .page-title h1 {
+        font-size: 36px;
+        margin: 0;
+      }
+
+      .section-header h2 {
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .section-header p {
+        text-align: center;
+        color: #555;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      .image-preview {
+        max-width: 100%;
+        max-height: 300px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+
+      #resultImage {
+        max-width: 100%;
+        margin-top: 20px;
+        display: none;
+        border-radius: 5px;
+      }
+
+      #technicalDetails {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+      }
+
+      #technicalDetails h4 {
+        margin-bottom: 10px;
+      }
+
+      #technicalDetails p {
+        margin-bottom: 5px;
+      }
+
+      footer {
+        background-color: #333;
+        color: white;
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      footer a {
+        color: #ffbc00;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      footer ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      footer ul li {
+        display: inline-block;
+        margin-right: 20px;
+      }
+
+      footer ul li a {
+        color: #aaa;
+      }
+
+      footer ul li a:hover {
+        color: #fff;
+      }
+
+      .scroll-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .scroll-top:hover {
+        background-color: #555;
+      }
+
+      
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container d-flex justify-content-between align-items-center">
+        <a href="/" class="logo">
+          <h1>eGatividhi<span>.</span></h1>
+        </a>
+        <nav class="navmenu">
+          <ul class="d-flex">
+            <li><a href="http://127.0.0.1:5500/index.html">Home</a></li>
+            <li><a href="http://127.0.0.1:5500/about.html">About</a></li>
+            <li><a href="http://127.0.0.1:5500/services.html">Services</a></li>
+            <li><a href="http://127.0.0.1:5500/contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Page Title -->
+      <div class="page-title">
+        <div class="container">
+          <h1>Construction Progress Detection</h1>
+        </div>
+      </div>
+
+      <!-- Detection Section -->
+      <section id="detection" class="detection section py-5">
+        <div class="container">
+          <div class="section-header">
+            <h2>Construction Progress Detection</h2>
+            <p>Upload and compare images to detect construction progress</p>
+          </div>
+
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <!-- Flask form action to upload images -->
+              <form
+                id="uploadForm"
+                action="/upload"
+                method="POST"
+                enctype="multipart/form-data"
+                class="mb-5"
+              >
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="imageUpload1" class="form-label"
+                        >Upload First Construction Site Image</label
+                      >
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="imageUpload1"
+                        name="image1"
+                        accept="image/*"
+                        required
+                      />
+                      <img
+                        id="preview1"
+                        class="image-preview"
+                        src="#"
+                        alt="Image preview"
+                        style="display: none"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="imageUpload2" class="form-label"
+                        >Upload Second Construction Site Image</label
+                      >
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="imageUpload2"
+                        name="image2"
+                        accept="image/*"
+                        required
+                      />
+                      <img
+                        id="preview2"
+                        class="image-preview"
+                        src="#"
+                        alt="Image preview"
+                        style="display: none"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                  Detect Progress
+                </button>
+              </form>
+
+              <div id="results" class="text-center" style="display: none">
+                <h3>Detection Results</h3>
+                <div id="resultContent"></div>
+                <img id="resultImage" src="#" alt="Processed Image" />
+                <div id="technicalDetails">
+                  <h4>Technical Details</h4>
+                  <p>
+                    <strong>SSIM Score:</strong> <span id="ssimScore"></span>
+                  </p>
+                  <p>
+                    <strong>Change Percentage:</strong>
+                    <span id="changePercentage"></span>%
+                  </p>
+                  <p>
+                    <strong>Estimated Progress:</strong>
+                    <span id="progressEstimation"></span>%
+                  </p>
+                  <h4>AI Analysis & Detection</h4>
+                  <p>
+                    <strong>Progress Description:</strong>
+                    <span id="progressDescription"></span>
+                  </p>
+                  <p>
+                    <strong>Construction Level:</strong>
+                    <span id="constructionLevel"></span>
+                  </p>
+                  <p>
+                    <strong>Construction Stage:</strong>
+                    <span id="constructionStage"></span>
+                  </p>
+                  <br>
+                  <button id="downloadReport" class="btn-download">
+                  Download Report
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <ul class="d-flex justify-content-center mb-4">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <p>
+          &copy; 2024 eGatividhi. All Rights Reserved. |
+          <a href="#">Privacy Policy</a>
+        </p>
+        <div>
+          <a href="#"><i class="bi bi-facebook me-3"></i></a>
+          <a href="#"><i class="bi bi-twitter me-3"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <a href="#" id="scroll-top" class="scroll-top">
+      <i class="bi bi-arrow-up-short fs-4"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript for image preview and form submission -->
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <!-- Updated JavaScript -->
+    <script>
+// const iframe = document.createElement("iframe");
+
+// const iframeStyles = (styleString) => {
+//   const style = document.createElement("style");
+//   style.textContent = styleString;
+//   document.head.append(style);
+// };
+
+// iframeStyles(`
+// .chat-frame {
+//   position: fixed;
+//   bottom: 50px;
+//   right: 50px;
+//   border: none;
+// }
+// `);
+
+// iframe.src = "http://localhost:3000/chatbot";
+// iframe.classList.add("chat-frame");
+// document.body.appendChild(iframe);
+
+// window.addEventListener("message", (e) => {
+//   if (e.origin !== "http://localhost:3000") return null;
+//   let dimensions = JSON.parse(e.data);
+//   iframe.width = dimensions.width;
+//   iframe.height = dimensions.height;
+//   iframe.contentWindow.postMessage(
+//     "40b9b4e5-b96b-4e81-bc39-2cfa47663329",
+//     "http://localhost:3000/"
+//   );
+// });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const uploadForm = document.getElementById("uploadForm");
+        const resultsDiv = document.getElementById("results");
+        const resultContent = document.getElementById("resultContent");
+        const imageUpload1 = document.getElementById("imageUpload1");
+        const imageUpload2 = document.getElementById("imageUpload2");
+        const preview1 = document.getElementById("preview1");
+        const preview2 = document.getElementById("preview2");
+        const resultImage = document.getElementById("resultImage");
+        const downloadButton = document.getElementById("downloadReport");
+
+        // Store the detection results
+        let detectionResults = null;
+
+        // Image preview handlers
+        imageUpload1.addEventListener("change", function () {
+          const file = this.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              preview1.src = e.target.result;
+              preview1.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+        imageUpload2.addEventListener("change", function () {
+          const file = this.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              preview2.src = e.target.result;
+              preview2.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+        // Handle form submission
+        uploadForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const formData = new FormData(uploadForm);
+
+          fetch(uploadForm.action, {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((error) => {
+                  throw new Error(error.error || "Unknown error occurred");
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              // Store the detection results
+              detectionResults = data;
+              
+              // Update the UI
+              resultImage.src = "data:image/jpeg;base64," + data.image;
+              resultImage.style.display = "block";
+              document.getElementById("ssimScore").textContent = data.ssim_score.toFixed(4);
+              document.getElementById("changePercentage").textContent = data.change_percentage.toFixed(2);
+              document.getElementById("progressEstimation").textContent = data.progress_estimation.toFixed(2);
+              document.getElementById("progressDescription").textContent = data.llava_description;
+              document.getElementById("constructionLevel").textContent = data.construction_level;
+              document.getElementById("constructionStage").textContent = data.construction_stage;
+              resultsDiv.style.display = "block";
+            })
+            .catch((error) => {
+              console.error("There was a problem with the fetch operation:", error);
+              resultContent.innerHTML = `<p>Error: ${error.message}</p>`;
+              resultsDiv.style.display = "block";
+            });
+        });
+
+        // Download report handler
+        downloadButton.addEventListener("click", async function() {
+          try {
+            // Get the result image
+            const resultImage = document.getElementById("resultImage");
+            const imgResponse = await fetch(resultImage.src);
+            const imgBlob = await imgResponse.blob();
+
+            // Create report content using the current display values
+            const reportContent = `
+Construction Progress Detection Report
+====================================
+Generated on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
+
+Technical Analysis
+-----------------
+SSIM Score: ${document.getElementById("ssimScore").textContent}
+Change Percentage: ${document.getElementById("changePercentage").textContent}%
+Estimated Progress: ${document.getElementById("progressEstimation").textContent}%
+
+Construction Status
+------------------
+Construction Level: ${document.getElementById("constructionLevel").textContent}
+Construction Stage: ${document.getElementById("constructionStage").textContent}
+
+AI Analysis
+----------
+Progress Description: ${document.getElementById("progressDescription").textContent}
+
+This report was generated automatically by eGatividhi.
+            `;
+
+            // Create zip file
+            const zip = new JSZip();
+            zip.file("report.txt", reportContent);
+            zip.file("detection-result.jpg", imgBlob);
+
+            // Generate and download zip
+            const zipContent = await zip.generateAsync({type: "blob"});
+            const zipUrl = URL.createObjectURL(zipContent);
+            const a = document.createElement('a');
+            a.href = zipUrl;
+            a.download = `construction-progress-report-${new Date().toLocaleDateString().replace(/\//g, '-')}.zip`;
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(zipUrl);
+            document.body.removeChild(a);
+          } catch (error) {
+            console.error("Error creating download:", error);
+            alert("There was an error creating the download. Please try again.");
+          }
+        });
+      });
+    </script>
+
+  </body>
+</html>

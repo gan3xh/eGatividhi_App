@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+        margin: 0;
+        padding: 0;
+        background: url('http://localhost/eGatividhi/assets/img/hero-carousel/hero-carousel-2.jpg') no-repeat center center fixed; /* Replace 'background-image.jpg' with your image path */
+        background-size: cover; /* Ensures the image covers the entire screen */
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif; /* Optional font styling */
+        }
+        .login-container {
+    width: 400px;
+    background: linear-gradient(to right, rgba(216, 129, 15, 0.85), rgba(204, 56, 11, 0.85));
+    border-radius: 1.5rem;
+    padding: 3%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+        .login-container img {
+            margin-top: 5%;
+            margin-bottom: 5%;
+            width: 25%;
+            animation: mover 1s infinite alternate;
+        }
+        @keyframes mover {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        .login-heading {
+            color: #000;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            display: none;
+        }
+        .form-container.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-control {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 1.5rem;
+            padding: 0 15px;
+            background: #fff;
+            color: #333;
+            font-weight: bold;
+            text-align: left;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .form-control::placeholder {
+            color: #aaa;
+            font-size: 1rem;
+            line-height: 50px;
+        }
+        .btnLogin {
+            width: 100%;
+            border: none;
+            border-radius: 1.5rem;
+            height: 60px; /* Increased height */
+            background: #b63a29;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem; /* Slightly increased font size */
+            margin-top: 10px;
+        }
+    
+        .position-relative {
+        position: relative;
+    }
+    
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .switch {
+            --_switch-bg-clr: #d8810f;
+            --_switch-padding: 4px;
+            --_slider-bg-clr: rgba(204, 56, 11, 0.65);
+            --_slider-bg-clr-on: rgba(204, 56, 11, 1);
+            --_slider-txt-clr: #ffffff;
+            --_label-padding: 1rem 2rem;
+            --_switch-easing: cubic-bezier(0.47, 1.64, 0.41, 0.8);
+            color: white;
+            width: fit-content;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            border-radius: 9999px;
+            cursor: pointer;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            position: relative;
+            isolation: isolate;
+            margin: 0 auto 20px auto;
+            margin-top: 5%;
+        }
+        .switch input[type="checkbox"] {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        .switch > span {
+            display: grid;
+            place-content: center;
+            transition: opacity 300ms ease-in-out 150ms;
+            padding: var(--_label-padding);
+        }
+        .switch::before,
+        .switch::after {
+            content: "";
+            position: absolute;
+            border-radius: inherit;
+            transition: inset 150ms ease-in-out;
+        }
+        .switch::before {
+            background-color: var(--_slider-bg-clr);
+            inset: var(--_switch-padding) 50% var(--_switch-padding) var(--_switch-padding);
+            transition: inset 500ms var(--_switch-easing), background-color 500ms ease-in-out;
+            z-index: -1;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.3);
+        }
+        .switch::after {
+            background-color: var(--_switch-bg-clr);
+            inset: 0;
+            z-index: -2;
+        }
+        .switch:focus-within::after {
+            inset: -0.25rem;
+        }
+        .switch:has(input:checked):hover > span:first-of-type,
+        .switch:has(input:not(:checked)):hover > span:last-of-type {
+            opacity: 1;
+            transition-delay: 0ms;
+            transition-duration: 100ms;
+        }
+        .switch:has(input:checked):hover::before {
+            inset: var(--_switch-padding) var(--_switch-padding) var(--_switch-padding) 45%;
+        }
+        .switch:has(input:not(:checked)):hover::before {
+            inset: var(--_switch-padding) 45% var(--_switch-padding) var(--_switch-padding);
+        }
+        .switch:has(input:checked)::before {
+            background-color: var(--_slider-bg-clr-on);
+            inset: var(--_switch-padding) var(--_switch-padding) var(--_switch-padding) 50%;
+        }
+        .switch > span:last-of-type,
+        .switch > input:checked + span:first-of-type {
+            opacity: 0.75;
+        }
+        .switch > input:checked ~ span:last-of-type {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h1>Welcome Back!</h1>
+    <img src="worker.png" alt="Login Icon" />
+    <p>Login To Access Your Account</p>
+    
+    <label class="switch" for="toggle">
+        <input type="checkbox" id="toggle" onchange="toggleForm(this.checked ? 'ministry' : 'projectManager')" />
+        <span>Project Manager</span>
+        <span>Ministry</span>
+    </label>
+    
+    <div id="projectManagerForm" class="form-container active">
+        <form action="login.php" method="POST">
+            <h3 class="register-heading">Login as a Project Manager</h3>
+            <input type="hidden" name="table" value="Project_Manager">
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email Address" name="email" required>
+            </div>
+            <div class="form-group position-relative">
+                <input type="password" class="form-control password-field" name="password" id="password" placeholder="Password " value="" required/>
+                    <span class="toggle-password" onclick="togglePassword(this)">
+                        <i class="fas fa-eye"></i>
+                    </span>
+            </div>
+            <input type="submit" class="btnLogin" value="Login">
+        </form>
+    </div>
+
+    <div id="ministryForm" class="form-container">
+        <form action="login.php" method="POST">
+            <h3 class="register-heading">Login as a Ministry</h3>
+            <input type="hidden" name="table" value="Ministry">
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email Address" name="email" required>
+            </div>
+            <div class="form-group position-relative">
+                <input type="password" class="form-control password-field" name="password" id="password" placeholder="Password " value="" required/>
+                    <span class="toggle-password" onclick="togglePassword(this)">
+                        <i class="fas fa-eye"></i>
+                    </span>
+            </div>
+            <input type="submit" class="btnLogin" value="Login">
+        </form>
+    </div>
+</div>
+
+<script>
+    function togglePassword(element) {
+        const passwordField = element.previousElementSibling;
+        const icon = element.querySelector('i');
+        const type = passwordField.type === "password" ? "text" : "password";
+        passwordField.type = type;
+        icon.className = type === "password" ? "fas fa-eye" : "fas fa-eye-slash";
+    }
+
+    function toggleForm(type) {
+            document.getElementById('projectManagerForm').classList.remove('active');
+            document.getElementById('ministryForm').classList.remove('active');
+            document.getElementById(type + 'Form').classList.add('active');
+            document.getElementById('switch-project').classList.remove('active');
+            document.getElementById('switch-ministry').classList.remove('active');
+            document.getElementById('switch-' + type.toLowerCase()).classList.add('active');
+    }
+</script>
+</body>
+</html>
+
