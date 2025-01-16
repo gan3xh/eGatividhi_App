@@ -116,6 +116,92 @@ DB_PASS=your_password
 DB_NAME=eGatividhi
 ```
 
+#### Workflow
+1. Ministry officials create a new project in the system
+2. Project parameters and requirements are set
+3. Project Manager is assigned
+4. Project Manager begins documentation:
+   - Regular image uploads
+   - Progress updates
+   - Milestone tracking
+5. System processes uploaded images:
+   - AI analysis of construction progress
+   - Comparison with previous stages
+   - Quality assessment
+6. Ministry officials review:
+   - AI-generated progress reports
+   - Construction quality analysis
+   - Timeline adherence
+   - Budget utilization
+7. Documentation is automatically generated and stored
+
+### Use Cases
+
+#### Ministry Portal Login
+1. **Project Initialization**
+   - Create new construction projects
+   - Set project parameters:
+     - Project deadline
+     - Budget allocation
+     - Construction milestones
+     - Expected deliverables
+   - Assign Project Managers to specific projects
+   - Upload initial project documentation and blueprints
+
+2. **Project Monitoring**
+   - Access real-time progress reports
+   - View AI-powered construction progress analysis
+   - Compare actual progress with planned timeline
+   - Monitor budget utilization
+   - Generate automated progress reports for documentation
+   - Verify construction quality through image analysis
+   - Track milestone completion status
+
+3. **Project Management**
+   - Update project parameters as needed
+   - Review and approve change requests
+   - Access historical project data
+   - Generate compliance reports
+   - Export progress documentation
+
+#### Project Manager Portal Login
+1. **Project Documentation**
+   - Access assigned projects
+   - View project details and requirements
+   - Upload construction site images at various stages
+   - Document daily/weekly progress
+   - Report construction challenges or delays
+
+2. **Progress Tracking**
+   - Upload progress images with timestamps
+   - Add progress descriptions and notes
+   - Tag images with specific milestone information
+   - Report completion percentage
+   - Document material usage and workforce deployment
+
+3. **Communication**
+   - Receive notifications about project updates
+   - Submit queries to ministry officials
+   - Access feedback on uploaded documentation
+   - Request timeline extensions if needed
+
+#### AI-Powered Features
+- **Image Analysis**
+  - Automatic detection of construction progress
+  - Comparison between different stages of construction
+  - Quality assessment of construction work
+  - Identification of potential construction issues
+  - Generation of progress percentage based on visual data
+
+- **Report Generation**
+  - Automated progress reports
+  - Comparison charts and graphs
+  - Timeline tracking
+  - Budget utilization analysis
+  - Milestone completion status
+  - Construction quality metrics
+
+
 ### File Structure
 ```
 eGatividhi/
